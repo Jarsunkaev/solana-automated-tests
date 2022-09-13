@@ -7,30 +7,16 @@ describe("My Projects page", () => {
     cy.visit("/");
     cy.viewport(1629, 882);
     cy.contains("Ecosystem").should("be.visible").click();
-    cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem"
-    );
-    cy.get(
-      ".d-md-flex > :nth-child(3) > .sc-47d31334-0 > .dropdown > #dropdown-basic"
-    ).click();
-    cy.contains("Sign in").should("exist").click();
-    cy.wait(13000);
-    cy.get(
-      ".d-md-flex > :nth-child(3) > .sc-47d31334-0 > .dropdown > #dropdown-basic"
-    ).click();
-    cy.contains("My projects")
-      .scrollIntoView()
-      .should("be.visible")
-      .click({ force: true });
+    cy.url().should("include", "/ecosystem");
+    cy.get("#dropdown-basic").click({ force: true });
+    cy.contains("Sign in").should("exist").click({ force: true });
+    cy.wait(20000);
+    cy.get("#dropdown-basic").click({ force: true });
+    cy.contains("My projects").should("exist").click({ force: true });
   });
 
   it("Verifies that the user is on the My projects page", () => {
-    cy.wait(3000);
-    cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem/profile"
-    );
+    cy.url().should("include", "/ecosystem/profile");
   });
 
   it("Verifies that projects have loaded and are visible", () => {
@@ -40,16 +26,23 @@ describe("My Projects page", () => {
   });
 
   it("Upvotes a project", () => {
-    cy.get(":nth-child(2) > .card > .card-body > .sc-78452f0c-2")
-      .should("be.visible")
+    cy.get(
+      "[class='EcosystemSingleProjectCard__StyledCardAction-sc-78452f0c-2 hKZsmz']"
+    )
+      .eq(0)
+      .should("exist")
       .click({ force: true });
-    cy.wait(3000);
+    cy.wait(2000)
   });
 
-  /*it("Verifies that the pagination buttons work", () => {
-    cy.contains("NEXT PAGE").should("be.visible").click();
-    cy.wait(4000);
-    cy.contains("PREVIOUS PAGE").should("exist").click();
+  it("Verifies that the pagination buttons work", () => {
+    cy.get(".col-lg-8 > :nth-child(1) > .d-md-flex > :nth-child(2)")
+      .should("exist")
+      .click({waitForAnimations: true});
+    cy.get('.col-lg-8 > :nth-child(1)').should('be.visible')
+    cy.get(".col-lg-8 > :nth-child(1) > .d-md-flex > :nth-child(1)")
+      .should("exist")
+      .click({waitForAnimations: true});
   });
 
   it("Verifies that the user can return to the ecosystem page via the Home button", () => {
@@ -58,9 +51,6 @@ describe("My Projects page", () => {
     )
       .should("exist")
       .click();
-    cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem"
-    );
-  }); */
+    cy.url().should("include", "/ecosystem");
+  });
 });
