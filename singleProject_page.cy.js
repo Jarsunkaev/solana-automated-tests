@@ -1,44 +1,36 @@
+//Testing out a Single project page and its functoinalities
+
 describe("Single Project Page", () => {
+  //It visits the appropriate website, signs in and navigates to a project page before the tests run
   before(() => {
-    cy.visit("https://solana-next-com-staging.vercel.app");
+    cy.visit("/");
+    cy.viewport(1480, 882);
     cy.contains("Ecosystem").should("be.visible").click();
-    cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem"
-    );
-    cy.get(
-      ".d-md-flex > :nth-child(3) > .sc-47d31334-0 > .dropdown > #dropdown-basic"
-    ).click();
-    cy.contains("Sign in").should("exist").click();
-    cy.wait(10000);
-    cy.contains("Show more").should("exist").click();
+    cy.url().should("include", "/ecosystem");
+    cy.get("#dropdown-basic").click({ force: true });
+    cy.contains("Sign in").should("exist").click({ force: true });
+    cy.wait(13000);
+    cy.contains("Show more").should("be.visible").click({ force: true });
     cy.wait(2000);
-    cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem/explore"
-    );
+    cy.url().should("include", "/ecosystem/explore");
     cy.contains("Hoglympics").click();
-    cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem/hoglympics"
-    );
+    cy.url().should("include", "/ecosystem/hoglympics");
   });
 
+  //Tests begin here:
   it("User can navigate to a single project page", () => {
     cy.contains("Hoglympics").should("exist").click();
   });
 
   it("Verifies that the 'More info' modal can opened and closed", () => {
-    cy.contains("More info").should("exist").click();
+    cy.contains("More info").should("exist").click({ force: true });
     cy.wait(2000);
     cy.contains("Close").should("exist").click();
   });
 
   it("Verifies that the user can upvote/ downvote the project", () => {
     //Upvote button
-    cy.get(".project__aside > .sc-fd615ea6-0 > .sc-594db403-0")
-      .should("exist")
-      .click();
+    cy.contains("Upvote").should("exist").click({ force: true });
   });
 
   it("Verifies that the 'Try It' button links to an external website", () => {
@@ -50,14 +42,15 @@ describe("Single Project Page", () => {
     );
   });
 
-  //Uncomment this section if you want to test reporting a project
+  /* Uncomment this section if you want to test reporting a project 
+  (you'll have to edit the project name and url as you can only report once per project)*/
 
   /*it.only("Verifies that the user can report a project", () => {
         //Report project button
         cy.get('.project__aside > .text-center')
             .should('exist')
             .click()
-        //Issue 
+        //Selecting an issue
         cy.get('[class="sc-1e8d36b7-0 iXtist mt-8"]')
             .parent('div')
             .within(() => {
@@ -97,9 +90,9 @@ describe("Single Project Page", () => {
     );
   });
 
-  it("it clicks on every image", () => {
+  it.only("Clicks on every image", () => {
     cy.get('a[class="d-block overflow-hidden"]').each(($img) => {
-      cy.wait(1000);
+      cy.wait(1000)
       cy.wrap($img)
         .find("span")
         .should("be.visible")
@@ -116,10 +109,9 @@ describe("Single Project Page", () => {
   });
 
   it("Verifies that the user can return to the ecosystem page via the Home button", () => {
-    cy.get('[class="sc-9d1b01ce-3 fcJimy"]').should("exist").click();
-    cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem"
-    );
+    cy.get('.EcosystemHeader__StyledBackButton-sc-9d1b01ce-3 > svg > path')
+      .should("exist")
+      .click();
+    cy.url().should("include", "/ecosystem");
   });
 });

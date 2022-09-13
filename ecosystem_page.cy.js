@@ -1,18 +1,21 @@
 //Testing out the Ecosystem page and its functoinalities
 
 describe("Ecosystem Page", () => {
-  beforeEach(() => {
-    cy.visit("https://solana-next-com-staging.vercel.app");
+  before(() => {
+    cy.visit("/");
+    cy.viewport(1480, 882);
     cy.contains("Ecosystem").should("be.visible").click();
+    cy.url().should("include", "/ecosystem");
+    cy.get("#dropdown-basic").click({ force: true });
+    cy.contains("Sign in").should("exist").click({ force: true });
+    cy.wait(13000);
+  });
+
+  afterEach(() => {
+    cy.contains("Ecosystem").scrollIntoView().should("exist").click({ force: true });
     cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem"
-    );
-    cy.get(
-      ".d-md-flex > :nth-child(3) > .sc-47d31334-0 > .dropdown > #dropdown-basic"
-    ).click();
-    cy.contains("Sign in").should("exist").click();
-    cy.wait(10000);
+      "include",
+      "/ecosystem")
   });
 
   it("user can search for a project", () => {
@@ -25,14 +28,15 @@ describe("Ecosystem Page", () => {
   });
 
   it("user can browse by category", () => {
-    cy.get(".sc-3a79b53a-0.d-none > .dropdown > #dropdown-button-dark-example1")
-      .should("exist")
-      .contains("Browse by category")
-      .click();
-    cy.get(".sc-3a79b53a-1 > input").should("be.empty").type("explorer");
+    cy.contains("Browse by category").should("exist").click({ force: true });
+    cy.get(
+      "div header div.EcosystemHeader__SecondaryNav-sc-9d1b01ce-1.bKtvvV div div > input:nth-child(2)"
+    )
+      .should("be.empty").eq(1)
+      .type("explorer");
     cy.get(".category-list > :nth-child(1)").click();
     cy.wait(1000);
-    cy.get(".selectedCategory").click();
+    cy.get(".selectedCategory").click({ force: true });
   });
 
   it("The Submit Project button is clickable and links to the submit page", () => {
@@ -46,15 +50,12 @@ describe("Ecosystem Page", () => {
 
   it("Verifies that the Show more button is clickable", () => {
     cy.contains("Show more").should("exist").click();
-    cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem/explore"
-    );
+    cy.url().should("include", "/ecosystem/explore");
   });
 
   it("User can Upvote/ Downvote a project", () => {
-    cy.get(":nth-child(1) > .card > .card-body > .sc-78452f0c-2")
+    cy.get("div div.container div div div div div div.card.card-background div > button").eq(0)
       .should("exist")
-      .click();
+      .click({ force: true });
   });
 });
