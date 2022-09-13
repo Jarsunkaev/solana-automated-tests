@@ -90,7 +90,7 @@ describe("Single Project Page", () => {
     );
   });
 
-  it.only("Clicks on every image", () => {
+  it("Clicks on every image", () => {
     cy.get('a[class="d-block overflow-hidden"]').each(($img) => {
       cy.wait(1000)
       cy.wrap($img)
