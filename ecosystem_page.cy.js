@@ -21,9 +21,8 @@ describe("Ecosystem Page", () => {
   it("user can search for a project", () => {
     cy.get(".projSearch")
       .should("exist")
-      .type("Squads")
+      .type("Squads{enter}")
       .should("have.value", "Squads");
-    cy.wait(3000);
     cy.get(".projSearch").clear().should("be.empty");
   });
 
