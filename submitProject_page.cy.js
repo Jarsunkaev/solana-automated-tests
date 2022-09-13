@@ -3,19 +3,19 @@ describe("Submit Project Page", () => {
     cy.visit("/");
     cy.contains("Ecosystem").should("be.visible").click();
     cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem"
+      "include",
+      "/ecosystem"
     );
     cy.get(
-      ".d-md-flex > :nth-child(3) > .sc-47d31334-0 > .dropdown > #dropdown-basic"
-    ).click();
-    cy.contains("Sign in").should("exist").click();
-    cy.wait(13000);
-    cy.contains("Submit Project").should("exist").click();
+      "#dropdown-basic"
+    ).click({ force: true });
+    cy.contains("Sign in").should("exist").click({ force: true });
+    cy.wait(20000);
+    cy.contains("Submit Project").should("exist").click({ force: true });
     cy.wait(2000);
     cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem/submit-project"
+      "include",
+      "/ecosystem/submit-project"
     );
   });
 
