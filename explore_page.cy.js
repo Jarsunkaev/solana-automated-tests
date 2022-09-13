@@ -1,27 +1,22 @@
+//Testing out the Explore page and its functoinalities
+
 describe("Explore Page", () => {
   before(() => {
-    cy.visit("https://solana-next-com-staging.vercel.app");
+    cy.visit("/");
+    cy.viewport(1480, 882);
     cy.contains("Ecosystem").should("be.visible").click();
-    cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem"
-    );
-    cy.get(
-      ".d-md-flex > :nth-child(3) > .sc-47d31334-0 > .dropdown > #dropdown-basic"
-    ).click();
-    cy.contains("Sign in").should("exist").click();
-    cy.wait(10000);
+    cy.url().should("include", "/ecosystem");
+    cy.get("#dropdown-basic").click({ force: true });
+    cy.contains("Sign in").should("exist").click({ force: true });
+    cy.wait(13000);
     cy.contains("Show more").should("exist").click();
     cy.wait(2000);
-    cy.url().should(
-      "eq",
-      "https://solana-next-com-staging.vercel.app/ecosystem/explore"
-    );
+    cy.url().should("include", "/ecosystem/explore");
   });
 
   it("User can switch between popular and newest tabs", () => {
-    cy.contains("Newest").should("exist").click();
-    cy.contains("Popular").should("exist").click();
+    cy.contains("Newest").should("exist").click({ force: true });
+    cy.contains("Popular").should("exist").click({ force: true });
   });
 
   it("User can switch between periodical viewing tabs", () => {
@@ -37,8 +32,8 @@ describe("Explore Page", () => {
         expect(list).to.have.length(12);
       }
     );
-    cy.get(":nth-child(1) > .card > .card-body > .sc-78452f0c-2")
-      .should("exist")
+    cy.get("div div div div div div div.card.card-background div.card-body.d-flex.align-items-center > button").eq(0)
+      .should("be.visible")
       .click();
   });
 
