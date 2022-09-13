@@ -18,9 +18,6 @@ describe("Single Project Page", () => {
   });
 
   //Tests begin here:
-  it("User can navigate to a single project page", () => {
-    cy.contains("Hoglympics").should("exist").click();
-  });
 
   it("Verifies that the 'More info' modal can opened and closed", () => {
     cy.contains("More info").should("exist").click({ force: true });
