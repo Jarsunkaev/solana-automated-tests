@@ -10,3 +10,4 @@
 6. Select a preferred browser (preferably **Chrome** or **Firefox**) and click "**Start E2E Testing in [selected browser]**".
 7. Navigate to the "**Specs**" tab and click on any of the the test files to start running :)
 
+**[Click here](https://dashboard.cypress.io/invitation/abc0ae3b-cdab-46c7-9fb2-c5f6a7874741)** to view test suite analytics.
