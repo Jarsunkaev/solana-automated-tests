@@ -1,6 +1,9 @@
 //Testing out the Ecosystem page and its functoinalities
 
 describe("Ecosystem Page", () => {
+  beforeEach(() => {
+    Cypress.Cookies.preserveOnce("next-auth.session-token");
+  });
   before(() => {
     cy.login()
   });
