@@ -1,4 +1,5 @@
 # Automated tests for the Solana Ecosystem
+Automated tests for each page on the Solana Ecosystem using Cypress.
 
 ## Running tests:
 
