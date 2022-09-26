@@ -1,6 +1,6 @@
 # Automated tests for the Solana Ecosystem
 
-## How to run tests:
+## Running tests:
 
 1. Make sure you have Cypress installed and the localhost server running in a terminal window.
 2. Download the "**e2e**" and the "**fixtures**" folder and place their contents into their respective folder in the project's "**cypress**" folder and save.
